@@ -1,0 +1,13 @@
+Source: dovecot-hash-mysql-5.5
+Section: database
+Priority: extra
+Maintainer: Andre Nathan <andre@digirati.com.br>
+Build-Depends: debhelper (>= 7.0.50~), dh-autoreconf, libmysqlclient-dev
+Standards-Version: 3.9.2
+Homepage: https://github.com/andrenth/dovecot-hash-mysql
+
+Package: dovecot-hash-mysql-5.5
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, mysql-server-core-5.5
+Description: Dovecot hash function for MySQL 5.5
+ This package provides a dovecot_hash function for use in MySQL.
