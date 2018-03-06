@@ -41,22 +41,6 @@ hash_mod(const char *s, unsigned int offset, unsigned int width)
     return hash;
 }
 
-static void
-reverse(char *s)
-{
-    size_t i, j;
-    size_t len = strlen(s);
-
-    if (len == 0)
-        return;
-
-    for (i = 0, j = len - 1; i < j; i++, j--) {
-        char t = s[j];
-        s[j] = s[i];
-        s[i] = t;
-    }
-}
-
 my_bool
 dovecot_hash_init(UDF_INIT *initid, UDF_ARGS *args, char *message)
 {
@@ -83,32 +67,22 @@ dovecot_hash(UDF_INIT *initid __attribute__((unused)),
              UDF_ARGS *args, char *result, unsigned long *length,
              char *is_null, char *error __attribute__((unused)))
 {
-    char *user = strndup(args->args[0], args->lengths[0]);
-    char *first_at = strchr(user, '@');
-    char *last_at = strrchr(user, '@');
+    char *str = strndup(args->args[0], args->lengths[0]);
     char *hash;
     unsigned int offset, width;
     size_t argc = args->arg_count;
     size_t len;
 
-    if (first_at != last_at)
-        *first_at = '=';
-
-    if (last_at != NULL)
-        *last_at = '\0';
-
-    reverse(user);
-
     offset = argc > 1 && args->args[1] ? *((long long *)args->args[1]) : 0;
     width  = argc > 2 && args->args[2] ? *((long long *)args->args[2]) : 0;
 
-    hash = hash_mod(user, offset, width);
+    hash = hash_mod(str, offset, width);
     len = strlen(hash);
     memcpy(result, hash, len);
     result[len] = '\0';
     *length = len;
 
-    free(user);
+    free(str);
     free(hash);
 
     return result;
