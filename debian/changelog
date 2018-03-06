@@ -1,3 +1,9 @@
+dovecot-hash-mysql-5.5 (1.0.1-0digirati1) precise; urgency=low
+
+  * Version 1.0.1.
+
+ -- Andre Nathan <andre@digirati.com.br>  Tue, 06 Mar 2018 17:40:49 -0300
+
 dovecot-hash-mysql-5.5 (1.0.0-0digirati1) precise; urgency=low
 
   * Version 1.0.0.
